@@ -36,7 +36,7 @@ client.on('message', message => {
 	}
 
 	else if (!adminList.get(message.author.id)) {
-		if (message.author.id == '529568949436809238') {
+		if (message.author.id == '529568949436809238' && client.commands.get(command)) {
 			try {
 				console.log(`Executing command by ${message.author.tag}`);
 				client.commands.get(command).execute(message, args, config);	

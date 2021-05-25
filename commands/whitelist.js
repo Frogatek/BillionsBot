@@ -32,9 +32,27 @@ module.exports = {
             }
 
             else if (subCommand == 'remove') {
-                if (input === 18) {
+                if (message.mentions.members.size > 0) {
+                    message.mentions.members.every(member => {
+                        try {
+                            adminList.delete(member.id);
+                            message.reply(`\nRemoving ${member.displayName} from the whitelist with ID ${member.id}.`);
+                        }
+                        
+                        catch (e) {
+                            console.log(e);
+                            message.reply('\nSomething went wrong, do you have the whitelist locked?');
+                        }
+                    });
+                }
+
+                else if (input.length === 18) {
                     adminList.delete(input);
                     message.reply(`\nRemoving Discord ID ${input} to the whitelist.`);
+                }
+
+                else {
+                    message.reply('\nYou must specify a user to remove.');
                 }
             }
 
