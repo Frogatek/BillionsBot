@@ -41,6 +41,10 @@ module.exports = {
             FindBlacklist(userName);
         }
 
+        else if (subCommand == 'remove' && userName) {
+            RemoveFromBlacklist(userName);
+        }
+
         else {
             message.reply(`\nThis seems invalid, maybe you did something wrong?\nExamples: \n${config.prefix}blacklist \`check\`\n${config.prefix}blacklist \`add CurrentMCName reason\`\n${config.prefix}blacklist \`find CurrentMCName\``);
         }
@@ -151,6 +155,25 @@ module.exports = {
             .setFooter('If this was a mistake, send a DM to Rina!');
             await message.reply(embed);
             await blackList.set(`${resolvedUserUUID}`, { userName: userName, addedBy: message.author.tag, UUID: resolvedUserUUID, reason: banReason, when: Date() });
+            }
+        }
+
+        async function RemoveFromBlacklist() {
+            const removedUUID = await ReturnUUID(userName);
+            const removedEntry = await blackList.get(`${removedUUID}`);
+            if (removedEntry) {
+                const deletionResult = blackList.delete(`${removedUUID}`);
+                if (deletionResult) {
+                    message.reply(`\nRemoved ${userName} from the blacklist.\nOriginal name: ${removedEntry.userName}\nUUID: ${removedEntry.UUID}\nAdded by: ${removedEntry.addedBy}\nDate: ${removedEntry.when}`);
+                }
+
+                else {
+                    message.reply('\nSomething went wrong.');
+                }
+            }
+
+            else {
+                message.reply('\nUnable to find that person, make sure you used their current MC name.');
             }
         }
     },
