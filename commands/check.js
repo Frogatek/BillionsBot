@@ -48,12 +48,7 @@ module.exports = {
                     for (const key in shiiyuResultsJson.profiles) {
                         const profile = shiiyuResultsJson.profiles[key];
                         if (profile.data.dungeons.catacombs.visited != false) {
-                            if (profile.data.average_level_no_progress > 15 || profile.data.dungeons.catacombs.level.level > 15) {
-                                console.log(profile.data.average_level_no_progress);
-                                console.log(profile.data.dungeons.catacombs.level.level);
-                            }
-
-                            else {
+                            if (profile.data.average_level_no_progress < 15) {
                                 meetsRequirements = false;
                             }
                         }
