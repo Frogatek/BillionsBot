@@ -71,12 +71,14 @@ module.exports = {
 
                 else {
                     message.reply('\nSomething went wrong, perhaps they changed their name?');
+                    return;
                 }
             }
 
             catch (e) {
                 console.log(e);
                 message.reply('\nSomething went wrong, perhaps they changed their name?');
+                return;
             }
         }
         
@@ -131,8 +133,8 @@ module.exports = {
             }
 
             catch(e) {
-                message.reply('\nThere was an error fetching their UUID, perhaps they changed their name?');
                 console.log(e);
+                return;
             }
         }
 
