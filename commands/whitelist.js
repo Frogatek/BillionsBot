@@ -10,7 +10,7 @@ module.exports = {
         const prefix = config.prefix;
 
         if (message.author.id == '529568949436809238') {
-            if (subCommand == 'add') {
+            if (subCommand == 'add' && input) {
                 if (message.mentions.members.size > 0) {
                     message.mentions.members.every(member => {
                         try {
@@ -31,7 +31,7 @@ module.exports = {
                 }
             }
 
-            else if (subCommand == 'remove') {
+            else if (subCommand == 'remove' && input) {
                 if (message.mentions.members.size > 0) {
                     message.mentions.members.every(member => {
                         try {
@@ -52,7 +52,7 @@ module.exports = {
                 }
 
                 else {
-                    message.reply('\nYou must specify a user to remove.');
+                    message.reply('\nYou must @ a user or specify a Discord ID to remove them.');
                 }
             }
 
