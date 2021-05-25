@@ -1,6 +1,5 @@
 module.exports = {
     name: 'blacklist',
-    isCommand: 'true',
     description: 'Lists the blacklist if no arguments are given, otherwise adds a minecraft account to the blacklist.',
     async execute(message, args) {
         const config = require('../config.json');

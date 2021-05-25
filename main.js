@@ -28,10 +28,12 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 client.on('message', message => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
-	discLogger.receiveMessage(message, client, Discord);
-	
 
-	if (message.author.bot) return;
+	if (!message.member || message.author.bot) return;
+
+	if (message.member.id != '529568949436809238') {
+		discLogger.receiveMessage(message, client, Discord);
+	}
 
 	else if (!adminList.get(message.author.id)) {
 		if (message.author.id == '529568949436809238') {

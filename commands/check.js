@@ -1,6 +1,5 @@
 module.exports = {
     name: 'check',
-    isCommand: 'true',
     description: 'Runs a check to see if a user meets guild requirements.',
     async execute(message, args) {
         const fetch = require('node-fetch');
@@ -22,16 +21,21 @@ module.exports = {
             if (!checkMember) return;
             const blackList = require('quick.db');
 
-            return RunCheck(checkMember, scammerList, blackList, userName);
+            await message.reply('\n⌛ Processing your request, it may take up to a few minutes ⌛')
+            .then((msg) => {
+                RunCheck(checkMember, scammerList, blackList, userName, msg);
+            });
+
+            return;
         }
 
-        async function RunCheck(checkMember, scammerList, blackList, userName) {
+        async function RunCheck(checkMember, scammerList, blackList, userName, msg) {
             console.log('Running a single user check!');
             let scammer = false;
             let meetsRequirements = true;
             if (blackList.get(`${checkMember}`)) {
-                const blacklistedUser = blackList.get(`${checkMember}`);
-                message.reply(`\n${blacklistedUser.userName} is blacklisted from the guild.\nReason: ${blacklistedUser.reason}\n${blacklistedUser.UUID}`);
+                const blacklistedUser = await blackList.get(`${checkMember}`);
+                await message.reply(`\n${blacklistedUser.userName} is blacklisted from the guild.\nReason: ${blacklistedUser.reason}\n${blacklistedUser.UUID}`);
                 return;
             }
 
@@ -59,17 +63,21 @@ module.exports = {
                     console.log(e);
                 }
 
-                return SendResults(meetsRequirements, scammer);
+                return await SendResults(meetsRequirements, scammer, msg);
             }
         }
 
-        async function SendResults(meetsRequirements, scammer) {
+        async function SendResults(meetsRequirements, scammer, msg) {
             if (meetsRequirements && !scammer) {
-                message.reply('\nThis player meets our requirements and can be accepted.');
+                msg.edit('\n✅ This user meets all of our requirements. ✅');
             }
 
-            else {
-                message.reply('\nThis user does not meet our requirements.');
+            else if (scammer) {
+                msg.edit('\n🛑 This user is on the SBZ scammer list and should not be accepted. 🛑');
+            }
+
+            else if (!meetsRequirements) {
+                msg.edit('\n🛑 This user does not meet our requirements. 🛑');
             }
         }
 

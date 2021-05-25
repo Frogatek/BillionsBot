@@ -1,6 +1,5 @@
 module.exports = {
     name: 'whitelist',
-    isCommand: 'true',
     description: 'Allows users to use the bot.',
     async execute(message) {
         const adminList = require('quick.db');
