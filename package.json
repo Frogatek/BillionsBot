@@ -1,0 +1,27 @@
+{
+  "name": "billionsbot",
+  "version": "1.0.0",
+  "description": "i suck dont bully me",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "eslint": "^7.26.0",
+    "hypixel-api-reborn": "^8.1.0",
+    "jquery": "^3.6.0",
+    "quick.db": "^7.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RinaBTW/BillionsBot.git"
+  },
+  "author": "RinaBTW",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RinaBTW/BillionsBot/issues"
+  },
+  "homepage": "https://github.com/RinaBTW/BillionsBot#readme"
+}
