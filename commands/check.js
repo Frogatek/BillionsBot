@@ -3,6 +3,7 @@ module.exports = {
     description: 'Runs a check to see if a user meets guild requirements.',
     async execute(message, args) {
         const fetch = require('node-fetch');
+        const Discord = require('discord.js');
 
         if (args[0]) {
             ProcessCheck(message);
@@ -35,7 +36,15 @@ module.exports = {
             let meetsRequirements = true;
             if (blackList.get(`${checkMember}`)) {
                 const blacklistedUser = await blackList.get(`${checkMember}`);
-                await message.reply(`\n${blacklistedUser.userName} is blacklisted from the guild.\nReason: ${blacklistedUser.reason}\n${blacklistedUser.UUID}`);
+                const blackListedCheck = new Discord.MessageEmbed()
+                .setTitle(`🚨 Blacklisted User - ${userName} 🚨`)
+                .addField('Original Name', `${blacklistedUser.userName}`)
+                .addField('Reason', `${blacklistedUser.reason}`)
+                .addField('UUID', `${blacklistedUser.UUID}`)
+                .addField('Added by', `${blacklistedUser.addedBy}`)
+                .addField('When:', `${blacklistedUser.when}`);
+                await msg.channel.send(blackListedCheck);
+                await msg.edit('This user is blacklisted:');
                 return;
             }
 
