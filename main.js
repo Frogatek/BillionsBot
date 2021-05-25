@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const adminList = require('quick.db');
+const discLogger = require('./util/discLogger.js');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -19,21 +20,25 @@ client.on('ready', () => {
 		.catch(console.error);
 });
 
+client.on('messageUpdate', (oldMessage, newMessage) => {
+	console.log('Saw a message update');
+	discLogger.receiveMessageUpdate(oldMessage, newMessage, client, Discord);
+});
+
 client.on('message', message => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
+	discLogger.receiveMessage(message, client, Discord);
+	
 
 	if (message.author.bot) return;
-
-	else if (!message.content.startsWith(prefix) || !client.commands.has(command)) {
-		console.log(`\n${message.member.nickname} in ${message.channel.name}: ${message.content}`);
-	}
 
 	else if (!adminList.get(message.author.id)) {
 		if (message.author.id == '529568949436809238') {
 			try {
 				console.log(`Executing command by ${message.author.tag}`);
 				client.commands.get(command).execute(message, args, config);	
+				return;
 			}
 
 			catch (e) {
@@ -44,11 +49,12 @@ client.on('message', message => {
 		else {
 			console.log(`${message.author.tag} tried to use a command but was rejected.`);
 			message.reply('\nSorry, this bot is for officer+ only.');
+			return;
 			
 		}
 	}
 
-	else {
+	else if (client.commands.get(command)) {
 		try {
 			console.log(`Executing command by ${message.author.tag}`);
 			return client.commands.get(command).execute(message, args, config);
@@ -57,6 +63,10 @@ client.on('message', message => {
 		catch (e) {
 			console.log(e);
 		}
+	}
+
+	else {
+		return;
 	}
 });
 
