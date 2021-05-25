@@ -35,36 +35,22 @@ client.on('message', message => {
 		discLogger.receiveMessage(message, client, Discord);
 	}
 
-	else if (!adminList.get(message.author.id)) {
-		if (message.author.id == '529568949436809238' && client.commands.get(command)) {
-			try {
-				console.log(`Executing command by ${message.author.tag}`);
-				client.commands.get(command).execute(message, args, config);	
-				return;
-			}
-
-			catch (e) {
-				console.log(e);
-			}
-		}
-
-		else {
-			console.log(`${message.author.tag} tried to use a command but was rejected.`);
-			message.reply('\nSorry, this bot is for officer+ only.');
-			return;
-			
-		}
-	}
-
-	else if (client.commands.get(command)) {
+	if (adminList.get(message.author.id) && client.commands.get(command)) {
 		try {
 			console.log(`Executing command by ${message.author.tag}`);
-			return client.commands.get(command).execute(message, args, config);
+			client.commands.get(command).execute(message, args, config);	
+			return;
 		}
 
 		catch (e) {
 			console.log(e);
 		}
+	}
+
+	else if (message.content.startsWith(prefix)) {
+		console.log(`${message.author.tag} tried to use a command but was rejected.`);
+		message.reply('\nSorry, this bot is for officers only.');
+		return;
 	}
 
 	else {

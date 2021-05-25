@@ -35,7 +35,7 @@ module.exports = {
                 if (message.mentions.members.size > 0) {
                     message.mentions.members.every(member => {
                         try {
-                            adminList.delete(member.id);
+                            adminList.delete(`${member.id}`);
                             message.reply(`\nRemoving ${member.displayName} from the whitelist with ID ${member.id}.`);
                         }
                         
@@ -47,7 +47,8 @@ module.exports = {
                 }
 
                 else if (input.length === 18) {
-                    adminList.delete(input);
+                    adminList.delete(`${input}`);
+                    console.log();
                     message.reply(`\nRemoving Discord ID ${input} to the whitelist.`);
                 }
 
