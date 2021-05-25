@@ -60,7 +60,7 @@ module.exports = {
                     const shiiyuResultsJson = await shiiyuResults.json();
                     for (const key in shiiyuResultsJson.profiles) {
                         const profile = shiiyuResultsJson.profiles[key];
-                        if (profile.data.average_level_no_progress > 15) {
+                        if (profile.data.average_level_no_progress >= 15) {
                             meetsRequirements = true;
                         }
                     }   
