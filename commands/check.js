@@ -33,7 +33,7 @@ module.exports = {
         async function RunCheck(checkMember, scammerList, blackList, userName, msg) {
             console.log('Running a single user check!');
             let scammer = false;
-            let meetsRequirements = true;
+            let meetsRequirements = false;
             if (blackList.get(`${checkMember}`)) {
                 const blacklistedUser = await blackList.get(`${checkMember}`);
                 const blackListedCheck = new Discord.MessageEmbed()
@@ -60,10 +60,8 @@ module.exports = {
                     const shiiyuResultsJson = await shiiyuResults.json();
                     for (const key in shiiyuResultsJson.profiles) {
                         const profile = shiiyuResultsJson.profiles[key];
-                        if (profile.data.dungeons.catacombs.visited != false) {
-                            if (profile.data.average_level_no_progress < 15) {
-                                meetsRequirements = false;
-                            }
+                        if (profile.data.average_level_no_progress > 15) {
+                            meetsRequirements = true;
                         }
                     }   
                 }
