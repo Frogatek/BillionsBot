@@ -30,29 +30,30 @@ client.on('message', message => {
 	const command = args.shift().toLowerCase();
 
 	if (!message.member || message.author.bot) return;
-
-	if (message.member.id != '529568949436809238') {
-		discLogger.receiveMessage(message, client, Discord);
-	}
-
-	if (adminList.get(message.author.id) && client.commands.get(command)) {
-		try {
-			console.log(`Executing command by ${message.author.tag}`);
-			client.commands.get(command).execute(message, args, config);	
+	
+	if (message.content.startsWith(prefix)) {
+		if (message.member.id != '529568949436809238') {
+			discLogger.receiveMessage(message, client, Discord);
+		}
+	
+		if (adminList.get(message.author.id) && client.commands.get(command)) {
+			try {
+				console.log(`Executing command by ${message.author.tag}`);
+				client.commands.get(command).execute(message, args, config);	
+				return;
+			}
+	
+			catch (e) {
+				console.log(e);
+			}
+		}
+	
+		else if (message.author.id === '529568949436809238') {
+			client.commands.get(command).execute(message, args, config);
 			return;
 		}
-
-		catch (e) {
-			console.log(e);
-		}
 	}
-
-	else if (message.content.startsWith(prefix)) {
-		console.log(`${message.author.tag} tried to use a command but was rejected.`);
-		message.reply('\nSorry, this bot is for officers only.');
-		return;
-	}
-
+	
 	else {
 		return;
 	}
