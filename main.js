@@ -55,6 +55,7 @@ client.on('message', message => {
 	}
 	
 	else {
+		discLogger.receiveMessage(message, client, Discord);
 		return;
 	}
 });
