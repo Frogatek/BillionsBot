@@ -6,8 +6,6 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "eslint": "^7.26.0",
-    "hypixel-api-reborn": "^8.1.0",
-    "jquery": "^3.6.0",
     "quick.db": "^7.1.3"
   },
   "devDependencies": {},
