@@ -120,7 +120,7 @@ module.exports = {
         }
 
         async function SendResults(scammerFound, matches, scammerFileTotal, membersTotal) {
-            message.channel.send(`\n${membersTotal} total members were checked ${scammerFileTotal} times and ${scammerFound} matches were found.`);
+            message.channel.send(`\n${membersTotal} total members were checked ${scammerFileTotal.toLocaleString()} times and ${scammerFound} matches were found.`);
             if (scammerFound > 1) {
                 for (const match of matches) {
                     message.channel.send(match);

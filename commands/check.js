@@ -4,6 +4,7 @@ module.exports = {
     async execute(message, args) {
         const fetch = require('node-fetch');
         const Discord = require('discord.js');
+        const config = require('../config.json');
 
         if (args[0]) {
             ProcessCheck(message);
@@ -60,7 +61,7 @@ module.exports = {
                     const shiiyuResultsJson = await shiiyuResults.json();
                     for (const key in shiiyuResultsJson.profiles) {
                         const profile = shiiyuResultsJson.profiles[key];
-                        if (profile.data.average_level_no_progress >= 15) {
+                        if (profile.data.weight >= config.weightRequirement) {
                             meetsRequirements = true;
                         }
                     }   
