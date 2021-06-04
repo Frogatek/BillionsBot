@@ -8,6 +8,13 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const config = require('./config.json');
 const prefix = config.prefix;
+const getMemberSize = require('./util/getMemberSize.js');
+
+let guildMembers;
+getMemberSize.getMemberSize()
+.then(value => {
+	guildMembers = value;
+});
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -16,7 +23,7 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	client.user.setPresence({ activity: { type: 'WATCHING', name: 'YOU' }, status: 'online' })
+	client.user.setPresence({ activity: { type: 'WATCHING', name: `${guildMembers + client.guilds.cache.size} members` }, status: 'online' })
 		.catch(console.error);
 });
 
