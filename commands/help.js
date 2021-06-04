@@ -14,6 +14,7 @@ module.exports = {
         .addField(prefix + 'blacklist', `${prefix}blacklist \`check\`\n${prefix}blacklist \`add CurrentMCName reason\`\n${prefix}blacklist \`find CurrentMCName\``)
         .addField(prefix + 'check', `${prefix}check \`CurrentMCName - Checks an MC user for current requirements, our blacklist, and the SBZ scammer list\``)
         .addField(prefix + 'whitelist', 'Only rina can use, allows users to interact with the bot.')
+        .addField(prefix + 'inactive', 'Displays inactive members in the guild. Only kick these people to make room for new members.')
         .addField(prefix + 'help', 'Displays an embed with various commands and useful info.');
         
         message.reply(helpEmbed);

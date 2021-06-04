@@ -6,6 +6,7 @@ config.json must be created before deploying:
     "prefix": "+",
     "token": "DISCORD-BOT-TOKEN",
     "loggingID": "DISCORD-CHANNEL-ID",
-    "weightRequirement": "SKYCRYPT-WEIGHT-VALUE"
+    "weightRequirement": "250",
+    "inactiveLimit": 5
 }
 ```
