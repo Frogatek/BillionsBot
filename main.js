@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	client.user.setPresence({ activity: { type: 'WATCHING', name: `${guildMembers + client.guilds.cache.size} members` }, status: 'online' })
+	client.user.setPresence({ activity: { type: 'WATCHING', name: `${guildMembers + client.users.cache.size} members` }, status: 'online' })
 		.catch(console.error);
 });
 
