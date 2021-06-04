@@ -10,12 +10,6 @@ const config = require('./config.json');
 const prefix = config.prefix;
 const getMemberSize = require('./util/getMemberSize.js');
 
-let guildMembers;
-getMemberSize.getMemberSize()
-.then(value => {
-	guildMembers = value;
-});
-
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
@@ -23,8 +17,8 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	client.user.setPresence({ activity: { type: 'WATCHING', name: `${guildMembers} members` }, status: 'online' })
-		.catch(console.error);
+	getMemberSize.updateMemberSize(client);
+	setInterval(getMemberSize.updateMemberSize, 1000 * 60 * 60, client); // 1 hour
 });
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
