@@ -32,6 +32,11 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	discLogger.receiveMessageUpdate(oldMessage, newMessage, client, Discord);
 });
 
+client.on('messageDelete', (message) => {
+	console.log('Saw a message get deleted');
+	discLogger.receiveMessageDeletion(message, client, Discord);
+});
+
 client.on('message', message => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
