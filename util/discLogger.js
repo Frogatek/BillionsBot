@@ -6,7 +6,7 @@ async function receiveMessage(message, client, Discord) {
 
     else {
         const messageLogEmbed = await new Discord.MessageEmbed()
-        .setAuthor(message.member.displayName)
+        .setDescription(message.member)
         .setTimestamp()
         .setFooter(`ID: ${message.author.id}`)
         .setURL(message.url)
@@ -26,7 +26,7 @@ async function receiveMessageUpdate(oldMessage, newMessage, client, Discord) {
 
     else {
         const messageLogEmbed = await new Discord.MessageEmbed()
-        .setAuthor(oldMessage.member.displayName)
+        .setDescription(oldMessage.member)
         .setTimestamp()
         .setFooter(`ID: ${oldMessage.author.id}`)
         .setURL(oldMessage.url)
@@ -46,7 +46,7 @@ async function receiveMessageDeletion(message, client, Discord) {
 
     else {
         const messageLogEmbed = await new Discord.MessageEmbed()
-        .setAuthor(message.member.displayName)
+        .setDescription(message.member)
         .setTimestamp()
         .setFooter(`ID: ${message.author.id}`)
         .setURL(message.url)
