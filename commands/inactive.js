@@ -6,7 +6,7 @@ module.exports = {
         const Discord = require('discord.js');
         const config = require('../config.json');
         const API_KEY = config.API_KEY;
-        const inactiveLimit = 6;
+        const inactiveLimit = config.inactiveLimit;
 
         const hypixelGuildResponse = await fetch(`https://api.hypixel.net/guild?name=billions&key=${API_KEY}`);
         const memberListJson = await hypixelGuildResponse.json();
@@ -26,6 +26,7 @@ module.exports = {
                 }
 
                 xp = Object.values(xp);
+                xp = xp.slice(0, inactiveLimit);
                 for (const value in xp) {
                     const currentIteration = xp[value];
                     if (currentIteration === 0) {
@@ -33,7 +34,8 @@ module.exports = {
                     }
                 }
 
-                if (inactiveDays > inactiveLimit) {
+                // This checks if said member has been in the guild for at least a day.
+                if (inactiveDays >= inactiveLimit && Date.now() - memberList[member].joined > 259200000) {
                     const mojangResponse = await fetch(`https://api.mojang.com/user/profiles/${uuid}/names`);
                     const mojangResponseJson = await mojangResponse.json();
                     const name = await mojangResponseJson.pop().name;
@@ -46,7 +48,7 @@ module.exports = {
             }
 
             else {
-                message.channel.reply('\nUnable to find any inactive members.');
+                message.reply('\nUnable to find any inactive members.');
             }
         }
 
