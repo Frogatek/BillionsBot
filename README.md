@@ -6,7 +6,8 @@ config.json must be created before deploying:
     "prefix": "+",
     "token": "DISCORD-BOT-TOKEN",
     "loggingID": "DISCORD-CHANNEL-ID",
-    "weightRequirement": "250",
+    "officerApplicationsChannelID": "APPLICATIONS-CHANNEL-ID",
+    "weightRequirement": "500",
     "inactiveLimit": 5
 }
 ```

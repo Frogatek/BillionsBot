@@ -35,6 +35,11 @@ client.on('message', message => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
 
+	if (message.channel.id === config.officerApplicationsChannelID) {
+		message.react('👍');
+		message.react('👎');
+	}
+
 	if (!message.member || message.author.bot) return;
 	
 	if (message.content.startsWith(prefix)) {
