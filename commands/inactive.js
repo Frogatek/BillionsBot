@@ -44,7 +44,9 @@ module.exports = {
             }
 
             if (inactiveMembers[0]) {
-                message.channel.send(inactiveMembers);
+                const codeBlock = '```';
+                const output = inactiveMembers.join(' \n');
+                message.channel.send(codeBlock + output + codeBlock);
             }
 
             else {
