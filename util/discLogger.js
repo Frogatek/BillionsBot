@@ -3,6 +3,7 @@ async function receiveMessage(message, client, Discord) {
     
     if (message.author.bot) return;
     else if (message.channel.id == config.loggingID) return;
+    else if (!message.content) return;
 
     else {
         const messageLogEmbed = await new Discord.MessageEmbed()
